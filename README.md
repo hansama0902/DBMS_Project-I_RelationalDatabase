@@ -13,7 +13,8 @@ To run this project, make sure you have the following installed:
 npm install sqlite3
 ```
 # Instructions for the Assignment
-Query 1:The SQL statement retrieves information about prescriptions, including the doctor_id, prescription_id,and date_issued. It also calculates the total number of prescriptions issued by each doctor(one query must contain a join of at least three tables).      
+Query 1:The SQL statement retrieves information about patients, including their first name, last name, the type of test they underwent,
+and the name of the laboratory that conducted the test.(one query must contain a join of at least three tables).      
 [query1](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query1.sql)  
 Query 2:The SQL statement retrieves the name of each doctor along with the count of prescriptions they have issued.  
 It uses a LEFT JOIN to ensure that all doctors are included, even if they have not issued any prescriptions(contain a subquery).     
