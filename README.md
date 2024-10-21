@@ -60,3 +60,8 @@ This command will read and execute the SQL statements from the query1.sql file, 
 7.Select your .sql file and click "Open".  
 8.The SQL file’s contents will load into the query editor.    
 9.Click "Execute" at the window to run all the SQL commands in the file.  
+# Introduce
+1.The DOC contains the requirements document(Definition of relational schema with proof that it is in BCNF) in PDF, the UML Class Diagram, the ERD Diagram and result of queries.    
+2.The DB contains the PatientManagement.db  
+3.The Query contains the create_table.sql and five execute queries.
+
