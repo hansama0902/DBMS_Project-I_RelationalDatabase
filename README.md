@@ -15,22 +15,16 @@ npm install sqlite3
 # Instructions for the Assignment
 Query 1:The SQL statement retrieves information about prescriptions, including the doctor_id, prescription_id,and date_issued. It also calculates the total number of prescriptions issued by each doctor(one query must contain a join of at least three tables).      
 [query1](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query1.sql)  
-Query 2: What are the names of each album and the artist who created it?      
-[query2](https://github.com/hansama0902/hansama0902-DBMS_Assignment_QueryDatabaseWithSQL/blob/main/Query/query2.sql)    
-Query 3: What are the total number of unique customers for each state, ordered alphabetically by state?  
-[query3](https://github.com/hansama0902/hansama0902-DBMS_Assignment_QueryDatabaseWithSQL/blob/main/Query/query3.sql)      
-Query 4: Which states have more than 10 unique customers?    
-[query4](https://github.com/hansama0902/hansama0902-DBMS_Assignment_QueryDatabaseWithSQL/blob/main/Query/query4.sql)     
-Query 5: What are the names of the artists who made an album containing the substring "symphony" in the album title?      
-[query5](https://github.com/hansama0902/hansama0902-DBMS_Assignment_QueryDatabaseWithSQL/blob/main/Query/query5.sql)       
-Query 6: What are the names of all artists who performed MPEG (video or audio) tracks in either the "Brazilian Music" or the "Grunge" playlists?      
-[query6](https://github.com/hansama0902/hansama0902-DBMS_Assignment_QueryDatabaseWithSQL/blob/main/Query/query6.sql)       
-Query 7: How many artists published at least 10 MPEG tracks?     
-[query7](https://github.com/hansama0902/hansama0902-DBMS_Assignment_QueryDatabaseWithSQL/blob/main/Query/query7.sql)          
-Query 8: What is the total length of each playlist in hours? List the playlist id and name of only those playlists that are longer than 2 hours, along with the length in hours rounded to two decimals.     
-[query8](https://github.com/hansama0902/hansama0902-DBMS_Assignment_QueryDatabaseWithSQL/blob/main/Query/query8.sql)  
-Query 9: Creative addition: Define a new meaningful query using at least three tables, and some window function. Explain clearly what your query achieves, and what the results mean.  
-[query9](https://github.com/hansama0902/hansama0902-DBMS_Assignment_QueryDatabaseWithSQL/blob/main/Query/query9.sql) 
+Query 2:The SQL statement retrieves the name of each doctor along with the count of prescriptions they have issued.  
+It uses a LEFT JOIN to ensure that all doctors are included, even if they have not issued any prescriptions(contain a subquery).     
+[query2](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query2.sql)    
+Query 3: -- The SQL statement retrieves the names of doctors who have issued two or more prescriptions, along with the count of those prescriptions(a group by with a having clause).  
+[query3](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query3.sql)      
+Query 4: -- The SQL statement retrieves information about patients,including their first and last names, symptoms, and test types.  
+The query filters results based on specific conditions: it selects male patients who have undergone a CRP test or female patients who have reported "Cough" as a symptom. The output provides patient details and relevant healthinformation based on these criteria(contain a complex search criterion). 
+[query4](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query4.sql)     
+Query 5: -- The SQL statement retrieves information about prescriptions, including the doctor_id, prescription_id, and date_issued. It also calculates the total number of prescriptions issued by each doctor(PARTITION BY).     
+[query5](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query5.sql)       
 # How to Run
 1.Open Terminal  
 Make sure you are in a terminal window, and navigate to the directory where the  MediaDB.db and query.sql files are located. Use the cd command to navigate to the correct directory. For example:
