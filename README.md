@@ -1,20 +1,20 @@
-# Assignment 4:  Query a Database with SQL
-This project demonstrates SQL skills using an SQLite sample database The tasks in this assignment are completed using SQL queries, which are run on the provided sample database from [MediaDB.db](https://github.com/hansama0902/hansama0902-DBMS_Assignment_QueryDatabaseWithSQL/blob/main/DB_Sample/MediaDB.db).
+# DBMS_Project-I_RelationalDatabase  
+This project demonstrates SQL skills using an SQLite sample database The tasks in this assignment are completed using SQL queries, which are run on the provided sample database from [PatientManagement.db](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/DB/PatientManagement.db).  
 # Prerequisites
 To run this project, make sure you have the following installed:  
 1.Node.js: [Download here](https://nodejs.org/zh-cn/).  
 2.SQLite: The SQLite CLI or an SQLite GUI tool such as DB Browser for SQLite(I used DataGrip)  
 # Steps to Set Up the Environment
 1.Clone this repository  
-2.Download the SQLite sample database from the link below: [MediaDB.db](https://github.com/hansama0902/hansama0902-DBMS_Assignment_QueryDatabaseWithSQL/blob/main/DB_Sample/MediaDB.db).  
+2.Download the SQLite sample database from the link below: [PatientManagement.db](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/DB/PatientManagement.db).   
 3.Place the downloaded  MediaDB.db file in the root directory of this project.  
 4.Install the necessary dependencies:  
 ```bash
 npm install sqlite3
 ```
 # Instructions for the Assignment
-Query 1: What are the last names and emails of all customer who made purchased in the store?        
-[query1](https://github.com/hansama0902/hansama0902-DBMS_Assignment_QueryDatabaseWithSQL/blob/main/Query/query1.sql)  
+Query 1:The SQL statement retrieves information about prescriptions, including the doctor_id, prescription_id,and date_issued. It also calculates the total number of prescriptions issued by each doctor(one query must contain a join of at least three tables).      
+[query1](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query1.sql)  
 Query 2: What are the names of each album and the artist who created it?      
 [query2](https://github.com/hansama0902/hansama0902-DBMS_Assignment_QueryDatabaseWithSQL/blob/main/Query/query2.sql)    
 Query 3: What are the total number of unique customers for each state, ordered alphabetically by state?  
