@@ -21,8 +21,7 @@ It uses a LEFT JOIN to ensure that all doctors are included, even if they have n
 [query2](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query2.sql)    
 Query 3:The SQL statement retrieves the names of doctors who have issued two or more prescriptions, along with the count of those prescriptions(a group by with a having clause).  
 [query3](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query3.sql)      
-Query 4:The SQL statement retrieves information about patients,including their first and last names, symptoms, and test types.  
-The query filters results based on specific conditions: it selects male patients who have undergone a CRP test or female patients who have reported "Cough" as a symptom. The output provides patient details and relevant healthinformation based on these criteria(contain a complex search criterion).   
+Query 4:The SQL statement Filter patients based on gender and either symptoms or test type. Male patients must have taken a CRP test, and female patients must have a symptom of 'Cough'.(contain a complex search criterion).   
 [query4](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query4.sql)     
 Query 5: -- The SQL statement rank each patient's tests based on test date, with the most recent test ranked as 1.(PARTITION BY).       
 [query5](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query5.sql)       
