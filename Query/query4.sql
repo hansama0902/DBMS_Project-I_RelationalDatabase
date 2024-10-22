@@ -1,17 +1,13 @@
 SELECT
-    PatientManagementAPP.first_name,
-    PatientManagementAPP.last_name,
-    HealthSurveillance.symptom,
+    Patient.first_name,
+    Patient.last_name,
+    Survey.symptom,
     Test.test_type
 FROM
-    PatientManagementAPP
-JOIN HealthSurveillance ON PatientManagementAPP.patient_id = HealthSurveillance.survey_id
-JOIN Test ON HealthSurveillance.survey_id = Test.survey_id
+    Patient
+JOIN Survey ON Patient.patient_id = Survey.patient_id
+JOIN Test ON patient.patient_id = Test.patient_id
 WHERE
-    (PatientManagementAPP.gender = 'male' AND Test.test_type = 'CRP')
-    OR (PatientManagementAPP.gender = 'female' AND HealthSurveillance.symptom = 'Cough');
--- The SQL statement retrieves information about patients,
---      including their first and last names, symptoms, and test types.
---      The query filters results based on specific conditions: it selects male patients who have undergone a CRP test
---      or female patients who have reported "Cough" as a symptom. The output provides patient details and relevant health
---      information based on these criteria.
+    (Patient.gender = 'male' AND Test.test_type = 'CRP')
+    OR (Patient.gender = 'female' AND Survey.symptom = 'Cough');
+-- Filter patients based on gender and either symptoms or test type. Male patients must have taken a CRP test, and female patients must have a symptom of 'Cough'.
