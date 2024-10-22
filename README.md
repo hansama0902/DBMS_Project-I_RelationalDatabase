@@ -16,8 +16,7 @@ npm install sqlite3
 Query 1:The SQL statement retrieves information about patients, including their first name, last name, the type of test they underwent,
 and the name of the laboratory that conducted the test.(one query must contain a join of at least three tables).      
 [query1](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query1.sql)  
-Query 2:The SQL statement retrieves the name of each doctor along with the count of prescriptions they have issued.  
-It uses a LEFT JOIN to ensure that all doctors are included, even if they have not issued any prescriptions(contain a subquery).     
+Query 2:The SQL statement retrieves the name of each doctor along with the count of prescriptions they have issued.It uses a LEFT JOIN to ensure that all doctors are included, even if they have not issued any prescriptions(contain a subquery).     
 [query2](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query2.sql)    
 Query 3:The SQL statement retrieves the names of doctors who have issued two or more prescriptions, along with the count of those prescriptions(a group by with a having clause).  
 [query3](https://github.com/hansama0902/DBMS_Project-I_RelationalDatabase/blob/main/Query/query3.sql)      
