@@ -37,8 +37,8 @@
                 <td><%= res[i].DOB%></td>
                 <td><%= res[i].address%></td>
                 <td><%= res[i].gender%></td>
-                <td><a href="#">Edit</a></td>
-                <td><a href="#">Delete</a></td>
+                <td><a href="/editPage?patient_id=<%=res[i].patient_id%>">Edit</a></td>
+                <td><a href="javascript:del(<%=res[i].patient_id%>)">Delete</a></td>
             </tr>
             <% } %>
     </table>
@@ -52,6 +52,19 @@
     function searchNumber(){
       location.href = '/testlist?number=' + $("#phoneNumber").val()
     }
+    function del(id){
+    $.ajax({
+      url: `/delete?id=${id}`,
+      success: (res)=>{
+        if(res.delstatus === 1){
+          alert('删除成功')
+          location.reload()
+        }else{
+          alert('删除失败')
+        }
+      }
+    })
+  }
     </script>
   </body>
   </html>
