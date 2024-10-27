@@ -84,9 +84,47 @@ router.get("/Patient",(req,res) =>{
     })
 
 })
+router.get("/Survey",(req,res) =>{
+    let sql = "select * from `Survey`where 1=1";
+    let params = []
+    if(req.query.Id){
+        sql += " and survey_id like ?";
+        params.push(`%${req.query.Id}%`);
+        }
+    if (req.query.foreignId) {
+
+            sql += " and patient_id like ?"
+            params.push(`%${req.query.foreignId}%`)
+          }
+
+    db.all(sql,params,(err,rows)=>{
+        if(err == null){
+            // res.send(rows)
+            res.render('survey', { 
+              res:rows
+            });
+            
+        }else{
+            res.send(err)
+        }
+    })
+
+})
 router.get("/delete",(req,res) =>{
     // receive 
     let sql = "delete from `Patient` where patient_id = ?";
+    let params = [req.query.id]
+    db.run(sql,params,(err)=>{
+        if(err == null){
+            res.json({
+                delstatus :1
+            })
+        }
+    })
+})
+router.get("/delSurvey",(req,res) =>{
+    // receive 
+    let sql = "delete from `Survey` where survey_id = ?";
     let params = [req.query.id]
     db.run(sql,params,(err)=>{
         if(err == null){
