@@ -30,9 +30,31 @@ var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database( path.join(__dirname,"../db/PatientManagement.db") );
 
 
+router.post("/addSurvey", (req, res) => {
+    let json_body = req.body;
+
+    let insert_sql = `
+        INSERT INTO Survey
+        (survey_id, last_sync, symptom, immuno_compromised, patient_id) 
+        VALUES (?, ?, ?, ?, ?);
+    `;
+    
+    db.run(insert_sql, [
+        json_body.survey_id,
+        json_body.last_sync,
+        json_body.symptom,
+        json_body.immuno_compromised,
+        json_body.patient_id,
+    ], (err) => {
+        if (err) {
+            console.error("Error executing SQL:", err);
+            res.send(err.message);  
+        }
+        res.redirect('/Survey');
+    });
+});
 router.post("/add", (req, res) => {
     let json_body = req.body;
-    console.log("add:", json_body.DOB);
 
     let insert_sql = `
         INSERT INTO Patient 

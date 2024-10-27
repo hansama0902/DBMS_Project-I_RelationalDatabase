@@ -28,7 +28,7 @@
       </div>
     </nav>
     
-    <h2>Patient Information</h2>
+    <h2>Survey  Information</h2>
 
     <div>
       <label for="surveyId" class="form-label">Survey ID:</label>
@@ -45,55 +45,42 @@
           <button onclick="searchPatient()" class="btn btn-primary">Search</button>
         </div>
       </div>
-  
-  
-  
-        <div>
-          <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#addPatientForm" aria-expanded="false" aria-controls="addPatientForm">
-            Add Patient
-          </button>
-          <div class="collapse" id="addPatientForm">
-            <div class="card card-body">
-              <form action="/add" method="POST">
-                <div class="mb-3">
-                  <label for="patient_id" class="form-label">Patient ID</label>
-                  <input type="text" class="form-control" id="patient_id" name="patient_id" required>
-                </div>
-                <div class="mb-3">
-                  <label for="firstName" class="form-label">First Name</label>
-                  <input type="text" class="form-control" id="firstName" name="first_name" required>
-                </div>
-                <div class="mb-3">
-                  <label for="lastName" class="form-label">Last Name</label>
-                  <input type="text" class="form-control" id="lastName" name="last_name" required>
-                </div>
-                <div class="mb-3">
-                  <label for="phone" class="form-label">Phone Number</label>
-                  <input type="text" class="form-control" id="phone" name="phone" required>
-                </div>
-                <div class="mb-3">
-                  <label for="DOB" class="form-label">Date of Birth</label>
-                  <input type="date" class="form-control" id="DOB" name="DOB" required>
-                </div>
-                <div class="mb-3">
-                  <label for="address" class="form-label">Address</label>
-                  <input type="text" class="form-control" id="address" name="address" required>
-                </div>
-                <div class="mb-3">
-                  <label for="gender" class="form-label">Gender</label>
-                  <select class="form-control" id="gender" name="gender" required>
-                    <option value="female">Female</option>
-                    <option value="male">Male</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-success w-100">Submit</button>
-              </form>
+      <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#addPatientForm" aria-expanded="false" aria-controls="addPatientForm">
+          Add Survey Information
+        </button>
+      </div>
+      
+      <div class="collapse mb-4" id="addPatientForm">
+        <div class="card card-body">
+          <form action="/addSurvey" method="POST">
+            <div class="mb-3">
+              <label for="survey_id" class="form-label">Survey ID</label>
+              <input type="number" class="form-control" id="survey_id" name="survey_id" required>
             </div>
-          </div>
+            <div class="mb-3">
+              <label for="patientId" class="form-label">Patient ID</label>
+              <input type="number" class="form-control" id="patientId" name="patient_id" required>
+            </div>
+            <div class="mb-3">
+              <label for="lastSync" class="form-label">Last Sync</label>
+              <input type="datetime-local" class="form-control" id="lastSync" name="last_sync" required>
+            </div>
+            <div class="mb-3">
+              <label for="symptom" class="form-label">Symptom</label>
+              <input type="text" class="form-control" id="symptom" name="symptom" required>
+            </div>
+            <div class="mb-3">
+              <label for="immunoCompromised" class="form-label">Immuno Compromised</label>
+              <select class="form-control" id="immunoCompromised" name="immuno_compromised" required>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Submit</button>
+          </form>
         </div>
       </div>
-    </div>
 
     <h2>Survey Information</h2>
     <table class="table table-striped" border="1">
