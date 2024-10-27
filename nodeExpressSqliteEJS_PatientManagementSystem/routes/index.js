@@ -32,7 +32,7 @@ var db = new sqlite3.Database( path.join(__dirname,"../db/PatientManagement.db")
 
 router.post("/addSurvey", (req, res) => {
     let json_body = req.body;
-
+    console.log("addSurvey:", json_body.immuno_compromised);
     let insert_sql = `
         INSERT INTO Survey
         (survey_id, last_sync, symptom, immuno_compromised, patient_id) 
@@ -179,6 +179,27 @@ router.get("/editPage", (req, res) => {
   })
 
 })
+router.get("/editSurvey", (req, res) => {
+    let sql = "select * from `Survey` where survey_id = ?"
+    let params = [req.query.survey_id]
+    db.all(sql,params,(err,rows)=>{
+        if(err == null){
+            res.render("editSurvey", { 
+                surveyObj:{
+                    survey_id:rows[0].survey_id,
+                    last_sync: rows[0].last_sync,
+                    symptom: rows[0].symptom,
+                    immuno_compromised: rows[0].immuno_compromised,
+                    patient_id:rows[0].patient_id,
+                   
+              }
+            });
+        }else{
+            res.send(err)
+        }
+    })
+  
+  })
 router.post("/updatePatient", (req, res) => {
     console.log(req.body.patient_id)
     let sql =`update Patient set
@@ -195,6 +216,26 @@ router.post("/updatePatient", (req, res) => {
         if(err == null){
             console.log("update success")
             res.redirect('/Patient')
+        }else{
+            res.send(err)
+        }
+    })
+})
+router.post("/updateSurvey", (req, res) => {
+    console.log(req.body.immuno_compromised)
+    let sql =`update Survey set
+  survey_id='${req.body.survey_id}',
+  last_sync='${req.body.last_sync}',
+  symptom='${req.body.symptom}',
+  immuno_compromised='${req.body.immuno_compromised}',
+  patient_id='${req.body.patient_id}'
+  where survey_id = ${req.body.survey_id}
+  `;
+    db.run(sql,[],(err)=>{
+        console.log("update success")
+        if(err == null){
+            console.log("update success")
+            res.redirect('/Survey')
         }else{
             res.send(err)
         }

@@ -1,25 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Table</title>
-</head>
-<body>
-    <h2>Patient Edit</h2>
-    <form action = "/updatePatient">
- <p>patient id：<input type="text" name="patient_id" value="<%=patientObj.patient_id%>"></p>
-  <p>first name：<input type="text" name="first_name" value="<%=patientObj.first_namen%>"></p>
-  <p>last name：<input type="text" name="last_name" value="<%=patientObj.last_name%>"></p>
-  <p>phone：<input type="text" name="phone" value="<%=patientObj.phone%>"></p>
-  <p>DOB：<input type="text" name="DOB" value="<%=patientObj.DOB%>"></p>
-  <p>address：<input type="text" name="address" value="<%=patientObj.address%>"></p>
-  <p>gender：<input type="text" name="gender" value="<%=patientObj.gender%>"></p>
-  <p><input type="submit" value="Submit"></p>
-</form>
-</body>
-</html> -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,7 +50,7 @@
                 <label for="gender">Gender</label>
                 <select class="form-control" id="gender" name="gender" required>
                     <option value="">Select Gender</option>
-                    <option value="male" <%= patientObj.gender === 'male' ? 'selected' : '' %>>ale</option>
+                    <option value="male" <%= patientObj.gender === 'male' ? 'selected' : '' %>>male</option>
                     <option value="female" <%= patientObj.gender === 'female' ? 'selected' : '' %>>female</option>
                     <option value="other" <%= patientObj.gender === 'other' ? 'selected' : '' %>>otherr</option>
                 </select>
