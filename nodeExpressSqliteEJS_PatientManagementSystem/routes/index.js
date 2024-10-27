@@ -135,15 +135,25 @@ router.get("/Survey",(req,res) =>{
 router.get("/delete",(req,res) =>{
     // receive 
     let sql = "delete from `Patient` where patient_id = ?";
+    let sql_survey = "DELETE FROM `Survey` WHERE patient_id = ?";
     let params = [req.query.id]
-    db.run(sql,params,(err)=>{
-        if(err == null){
-            res.json({
-                delstatus :1
-            })
+    db.run(sql, params, (err) => {
+        if (err) {
+          return res.status(500).json({ error: "Failed to delete from Patient table" });
         }
-    })
-})
+    
+        // Delete from Survey table
+        db.run(sql_survey, params, (err) => {
+          if (err) {
+            return res.status(500).json({ error: "Failed to delete from Survey table" });
+          }
+    
+          // Both tables deleted successfully
+          res.json({ delstatus: 1 });
+        });
+      });
+    });
+
 router.get("/delSurvey",(req,res) =>{
     // receive 
     let sql = "delete from `Survey` where survey_id = ?";

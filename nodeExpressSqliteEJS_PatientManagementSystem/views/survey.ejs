@@ -29,63 +29,68 @@
     </nav>
     
     <h2>Survey  Information</h2>
-
-    <div>
+    <p> <div>
       <label for="surveyId" class="form-label">Survey ID:</label>
       <input type="text" id="surveyId" name="surveyId" class="form-control d-inline-block w-auto">
       <button onclick="searchSurvey()" class="btn btn-primary">Search</button>
-    </div>
-    
-    <div class="container">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <div>
-          <label for="patientId" class="form-label">Patient ID:</label>
-          <input type="text" id="patientId" name="patientId" class="form-control d-inline-block w-auto">
-          <button onclick="searchPatient()" class="btn btn-primary">Search</button>
-        </div>
-      </div>
-      <div class="d-flex justify-content-end mb-3">
-        <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#addPatientForm" aria-expanded="false" aria-controls="addPatientForm">
-          Add Survey Information
-        </button>
-      </div>
-      
-      <div class="collapse mb-4" id="addPatientForm">
-        <div class="card card-body">
-          <form action="/addSurvey" method="POST">
-            <div class="mb-3">
-              <label for="survey_id" class="form-label">Survey ID</label>
-              <input type="number" class="form-control" id="survey_id" name="survey_id" required>
-            </div>
-            <div class="mb-3">
-              <label for="patientId" class="form-label">Patient ID</label>
-              <select class="form-control" id="patientId" name="patient_id" required>
-                <option value="">Select Patient ID</option>
-                <% for(var i = 0; i < res.length; i++) { %>
-                  <option value="<%= res[i].patient_id %>"><%= res[i].patient_id %></option>
-                  <% } %>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="lastSync" class="form-label">Last Sync</label>
-              <input type="datetime-local" class="form-control" id="lastSync" name="last_sync" required>
-            </div>
-            <div class="mb-3">
-              <label for="symptom" class="form-label">Symptom</label>
-              <input type="text" class="form-control" id="symptom" name="symptom" required>
-            </div>
-            <div class="mb-3">
-              <label for="immunoCompromised" class="form-label">Immuno Compromised</label>
-              <select class="form-control" id="immunoCompromised" name="immuno_compromised" required>
-                <option value="1">Yes</option>
-                <option value="0">No</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-success w-100">Submit</button>
-          </form>
-        </div>
-      </div>
+    </div></p>
 
+    <p>
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <!-- Patient ID Search Section -->
+          <div class="d-flex align-items-center">
+            <label for="patientId" class="form-label me-2">Patient ID:</label>
+            <input type="text" id="patientId" name="patientId" class="form-control d-inline-block w-auto me-2">
+            <button onclick="searchPatient()" class="btn btn-primary">Search</button>
+          </div>
+      
+          <!-- Add Survey Information Button -->
+          <div>
+            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#addPatientForm" aria-expanded="false" aria-controls="addPatientForm">
+              Add Survey Information
+            </button>
+          </div>
+        </div>
+      
+        <!-- Add Survey Information Form -->
+        <div class="collapse mb-4" id="addPatientForm">
+          <div class="card card-body">
+            <form action="/addSurvey" method="POST">
+              <div class="mb-3">
+                <label for="survey_id" class="form-label">Survey ID</label>
+                <input type="number" class="form-control" id="survey_id" name="survey_id" required>
+              </div>
+              <div class="mb-3">
+                <label for="patientId" class="form-label">Patient ID</label>
+                <select class="form-control" id="patientId" name="patient_id" required>
+                  <option value="">Select Patient ID</option>
+                  <% for(var i = 0; i < res.length; i++) { %>
+                    <option value="<%= res[i].patient_id %>"><%= res[i].patient_id %></option>
+                  <% } %>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="lastSync" class="form-label">Last Sync</label>
+                <input type="datetime-local" class="form-control" id="lastSync" name="last_sync" required>
+              </div>
+              <div class="mb-3">
+                <label for="symptom" class="form-label">Symptom</label>
+                <input type="text" class="form-control" id="symptom" name="symptom" required>
+              </div>
+              <div class="mb-3">
+                <label for="immunoCompromised" class="form-label">Immuno Compromised</label>
+                <select class="form-control" id="immunoCompromised" name="immuno_compromised" required>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-success w-100">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div></p>
+   
     <h2>Survey Information</h2>
     <table class="table table-striped" border="1">
         <thead>
