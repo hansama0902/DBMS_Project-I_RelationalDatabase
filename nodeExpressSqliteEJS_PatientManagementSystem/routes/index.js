@@ -21,7 +21,6 @@
 
 module.exports = router;
 const express = require("express")
-// const fs = require("fs")
 const path = require("path")
 var router = express.Router();
 
@@ -30,20 +29,36 @@ var sqlite3 = require("sqlite3").verbose();
 //指定数据库文件位置
 var db = new sqlite3.Database( path.join(__dirname,"../db/PatientManagement.db") );
 
-router.post("/add",(req,res)=>{
-    let json_body = req.body;
-    let insert_sql = "INSERT INTO `Patient` (`id`,`name`,`account`,`password`,`create_time`,`balance`) VALUES ( ?, ?, ?, ?, ?, ? );"
-    db.run(insert_sql,[json_body.id,json_body.name,json_body.account,json_body.password,'2022',json_body.balance],(err)=>{
-        if(err == null){
-            res.send("执行成功");
-            
-        }else{
-            res.send(err)
-        }
-    })
-})
 
-router.get("/testlist",(req,res) =>{
+router.post("/add", (req, res) => {
+    let json_body = req.body;
+    console.log("add:", json_body.DOB);
+
+    let insert_sql = `
+        INSERT INTO Patient 
+        (patient_id, first_name, last_name, phone, DOB, address, gender) 
+        VALUES (?, ?, ?, ?, ?, ?, ?);
+    `;
+    
+    db.run(insert_sql, [
+        json_body.patient_id,
+        json_body.first_name,
+        json_body.last_name,
+        json_body.phone,
+        json_body.DOB,  
+        json_body.address,
+        json_body.gender
+    ], (err) => {
+        if (err) {
+            console.error("Error executing SQL:", err);
+            res.send(err.message);  
+        }
+        res.redirect('/Patient');
+    });
+});
+
+
+router.get("/Patient",(req,res) =>{
     let sql = "select * from `Patient`where 1=1";
     let params = []
     if(req.query.id){
@@ -87,7 +102,7 @@ router.get("/editPage", (req, res) => {
   let params = [req.query.patient_id]
   db.all(sql,params,(err,rows)=>{
       if(err == null){
-          res.render('editPage', { 
+          res.render("editPage", { 
             patientObj:{
                 patient_id:rows[0].patient_id,
                 first_name:rows[0].first_name,
@@ -102,26 +117,24 @@ router.get("/editPage", (req, res) => {
           res.send(err)
       }
   })
-//   db.run(sql,()=>{
-//         res.redirect('/testlist')
-//     })
 
 })
-router.get("/updatePatient", (req, res) => {
+router.post("/updatePatient", (req, res) => {
+    console.log(req.body.patient_id)
     let sql =`update Patient set
-  first_name ='${req.query.first_name}',
-  last_name='${req.query.last_name}',
-  phone='${req.query.phone}',
-  DOB='${req.query.DOB}',
-  address='${req.query.address}',
-  gender='${req.query.gender}'
-  where patient_id = ${req.query.patient_id}
+  first_name ='${req.body.first_name}',
+  last_name='${req.body.last_name}',
+  phone='${req.body.phone}',
+  DOB='${req.body.DOB}',
+  address='${req.body.address}',
+  gender='${req.body.gender}'
+  where patient_id = ${req.body.patient_id}
   `;
     db.run(sql,[],(err)=>{
         console.log("update success")
         if(err == null){
             console.log("update success")
-            res.redirect('/testlist')
+            res.redirect('/Patient')
         }else{
             res.send(err)
         }
