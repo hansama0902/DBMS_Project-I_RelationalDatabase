@@ -37,7 +37,6 @@
     </div>
     
     <div class="container">
-      <!-- 搜索栏和添加病人按钮的水平对齐 -->
       <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
           <label for="patientId" class="form-label">Patient ID:</label>
@@ -60,7 +59,12 @@
             </div>
             <div class="mb-3">
               <label for="patientId" class="form-label">Patient ID</label>
-              <input type="number" class="form-control" id="patientId" name="patient_id" required>
+              <select class="form-control" id="patientId" name="patient_id" required>
+                <option value="">Select Patient ID</option>
+                <% for(var i = 0; i < res.length; i++) { %>
+                  <option value="<%= res[i].patient_id %>"><%= res[i].patient_id %></option>
+                  <% } %>
+              </select>
             </div>
             <div class="mb-3">
               <label for="lastSync" class="form-label">Last Sync</label>
