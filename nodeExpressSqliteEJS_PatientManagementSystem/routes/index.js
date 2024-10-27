@@ -116,9 +116,11 @@ router.get("/updatePatient", (req, res) => {
   address='${req.query.address}',
   gender='${req.query.gender}'
   where patient_id = ${req.query.patient_id}
-  `
+  `;
     db.run(sql,[],(err)=>{
+        console.log("update success")
         if(err == null){
+            console.log("update success")
             res.redirect('/testlist')
         }else{
             res.send(err)
