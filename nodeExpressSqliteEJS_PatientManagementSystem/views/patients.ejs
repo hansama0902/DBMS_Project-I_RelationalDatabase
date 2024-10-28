@@ -129,11 +129,11 @@
   <script>
 
     function searchId() {
-      location.href = '/Patient?id=' + $("#patientId").val()
+      location.href = '/?id=' + $("#patientId").val()
     }
 
     function searchNumber(){
-      location.href = '/Patient?number=' + $("#phoneNumber").val()
+      location.href = '/?number=' + $("#phoneNumber").val()
     }
     function del(id){
     $.ajax({
