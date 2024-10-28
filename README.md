@@ -62,5 +62,6 @@ This command will read and execute the SQL statements from the query1.sql file, 
 # Introduce
 1.The DOC contains the requirements document(Definition of relational schema with proof that it is in BCNF) in PDF, the UML Class Diagram, the ERD Diagram and result of queries.    
 2.The DB contains the PatientManagement.db  
-3.The Query contains the create_table.sql , test data and five execute queries.
+3.The Query contains the create_table.sql , test data and five execute queries.  
+4.The nodeExpressSqliteEJS_PatientManagementSystem contains the code
 
