@@ -18,5 +18,5 @@ npm install
 npm start
 ```
 
-4) Point your browser to http://localhost:3000/Patient
+4) Point your browser to http://localhost:3000
 
