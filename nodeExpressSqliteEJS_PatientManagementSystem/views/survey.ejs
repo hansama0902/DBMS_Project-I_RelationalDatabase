@@ -65,8 +65,8 @@
                 <label for="patientId" class="form-label">Patient ID</label>
                 <select class="form-control" id="patientId" name="patient_id" required>
                   <option value="">Select Patient ID</option>
-                  <% for(var i = 0; i < res.length; i++) { %>
-                    <option value="<%= res[i].patient_id %>"><%= res[i].patient_id %></option>
+                  <% for(var i = 0; i < res_patient.length; i++) { %>
+                    <option value="<%= res_patient[i].patient_id %>"><%= res_patient[i].patient_id %></option>
                   <% } %>
                 </select>
               </div>
@@ -90,8 +90,7 @@
           </div>
         </div>
       </div></p>
-   
-    <h2>Survey Information</h2>
+
     <table class="table table-striped" border="1">
         <thead>
           <tr>

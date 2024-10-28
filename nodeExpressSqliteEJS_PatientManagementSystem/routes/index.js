@@ -32,50 +32,84 @@ var db = new sqlite3.Database( path.join(__dirname,"../db/PatientManagement.db")
 
 router.post("/addSurvey", (req, res) => {
     let json_body = req.body;
-    console.log("addSurvey:", json_body.immuno_compromised);
-    let insert_sql = `
-        INSERT INTO Survey
-        (survey_id, last_sync, symptom, immuno_compromised, patient_id) 
-        VALUES (?, ?, ?, ?, ?);
-    `;
-    
-    db.run(insert_sql, [
-        json_body.survey_id,
-        json_body.last_sync,
-        json_body.symptom,
-        json_body.immuno_compromised,
-        json_body.patient_id,
-    ], (err) => {
+
+    // 检查 survey_id 是否已存在
+    let check_sql = "SELECT COUNT(*) AS count FROM Survey WHERE survey_id = ?";
+    db.get(check_sql, [json_body.survey_id], (err, row) => {
         if (err) {
             console.error("Error executing SQL:", err);
-            res.send(err.message);  
+            return res.status(500).send("Database error occurred");
         }
-        res.redirect('/Survey');
+
+        // 如果 survey_id 已存在，返回提示信息
+        if (row.count > 0) {
+            return res.status(400).send("Error: Survey ID already exists");
+        }
+
+        // 如果不存在，则执行插入操作
+        let insert_sql = `
+            INSERT INTO Survey
+            (survey_id, last_sync, symptom, immuno_compromised, patient_id) 
+            VALUES (?, ?, ?, ?, ?);
+        `;
+        
+        db.run(insert_sql, [
+            json_body.survey_id,
+            json_body.last_sync,
+            json_body.symptom,
+            json_body.immuno_compromised,
+            json_body.patient_id
+        ], (err) => {
+            if (err) {
+                console.error("Error executing SQL:", err);
+                return res.status(500).send("Error occurred while inserting record");
+            }
+
+            // 插入成功后重定向到 /Survey 页面
+            res.redirect('/Survey');
+        });
     });
 });
 router.post("/add", (req, res) => {
     let json_body = req.body;
 
-    let insert_sql = `
-        INSERT INTO Patient 
-        (patient_id, first_name, last_name, phone, DOB, address, gender) 
-        VALUES (?, ?, ?, ?, ?, ?, ?);
-    `;
-    
-    db.run(insert_sql, [
-        json_body.patient_id,
-        json_body.first_name,
-        json_body.last_name,
-        json_body.phone,
-        json_body.DOB,  
-        json_body.address,
-        json_body.gender
-    ], (err) => {
+    // 检查 patient_id 是否已存在
+    let check_sql = "SELECT COUNT(*) AS count FROM Patient WHERE patient_id = ?";
+    db.get(check_sql, [json_body.patient_id], (err, row) => {
         if (err) {
             console.error("Error executing SQL:", err);
-            res.send(err.message);  
+            return res.status(500).send("Database error occurred");
         }
-        res.redirect('/Patient');
+
+        // 如果 patient_id 已存在，返回提示信息
+        if (row.count > 0) {
+            return res.status(400).send("Error: Patient ID already exists");
+        }
+
+        // 如果不存在，则执行插入操作
+        let insert_sql = `
+            INSERT INTO Patient 
+            (patient_id, first_name, last_name, phone, DOB, address, gender) 
+            VALUES (?, ?, ?, ?, ?, ?, ?);
+        `;
+        
+        db.run(insert_sql, [
+            json_body.patient_id,
+            json_body.first_name,
+            json_body.last_name,
+            json_body.phone,
+            json_body.DOB,  
+            json_body.address,
+            json_body.gender
+        ], (err) => {
+            if (err) {
+                console.error("Error executing SQL:", err);
+                return res.status(500).send("Error occurred while inserting record");
+            }
+
+            // 插入成功后重定向到 /Patient 页面
+            res.redirect('/Patient');
+        });
     });
 });
 
@@ -106,32 +140,55 @@ router.get("/Patient",(req,res) =>{
     })
 
 })
-router.get("/Survey",(req,res) =>{
-    let sql = "select * from `Survey`where 1=1";
-    let params = []
-    if(req.query.Id){
-        sql += " and survey_id like ?";
+// 
+router.get("/Survey", (req, res) => {
+    let sql = "SELECT * FROM `Survey` WHERE 1=1";
+    let sql_patient = "SELECT * FROM `Patient` WHERE 1=1";
+    let params = [];
+    
+    if (req.query.Id) {
+        sql += " AND survey_id LIKE ?";
         params.push(`%${req.query.Id}%`);
-        }
+    }
     if (req.query.foreignId) {
+        sql += " AND patient_id LIKE ?";
+        params.push(`%${req.query.foreignId}%`);
+    }
 
-            sql += " and patient_id like ?"
-            params.push(`%${req.query.foreignId}%`)
-          }
+    // 使用 Promise 来处理异步操作
+    let getSurveyData = new Promise((resolve, reject) => {
+        db.all(sql, params, (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        });
+    });
 
-    db.all(sql,params,(err,rows)=>{
-        if(err == null){
-            // res.send(rows)
-            res.render('survey', { 
-              res:rows
+    let getPatientData = new Promise((resolve, reject) => {
+        db.all(sql_patient, (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        });
+    });
+
+    // 等待两个查询都完成后再渲染页面
+    Promise.all([getSurveyData, getPatientData])
+        .then(([surveyRows, patientRows]) => {
+            res.render('survey', {
+                res: surveyRows,
+                res_patient: patientRows
             });
-            
-        }else{
-            res.send(err)
-        }
-    })
+        })
+        .catch((err) => {
+            res.send(err);
+        });
+});
 
-})
 router.get("/delete",(req,res) =>{
     // receive 
     let sql = "delete from `Patient` where patient_id = ?";
