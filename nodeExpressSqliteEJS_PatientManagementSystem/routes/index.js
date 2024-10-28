@@ -114,7 +114,7 @@ router.post("/add", (req, res) => {
 });
 
 
-router.get("/Patient",(req,res) =>{
+router.get("/",(req,res) =>{
     let sql = "select * from `Patient`where 1=1";
     let params = []
     if(req.query.id){
@@ -282,7 +282,7 @@ router.post("/updatePatient", (req, res) => {
         console.log("update success")
         if(err == null){
             console.log("update success")
-            res.redirect('/Patient')
+            res.redirect('/')
         }else{
             res.send(err)
         }
