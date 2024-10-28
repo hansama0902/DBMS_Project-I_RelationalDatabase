@@ -1,39 +1,20 @@
-// var express = require('express');
-// var router = express.Router();
-// const sqlite3 = require('sqlite3').verbose();
-// var db = require('../db/PatientManagement.db');
 
-
-
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
-// router.get('/', function(req, res) {
-//   res.send("name");
-// });
-// router.get("/getPatients", (req, res) =>{
-//   console.log("getpatients:", req.query);
-//   res.render("patients", { title: "Patients",
-//     res:[]
-//   });
-// })
 
 module.exports = router;
 const express = require("express")
 const path = require("path")
 var router = express.Router();
 
-//导入模块
+
 var sqlite3 = require("sqlite3").verbose();
-//指定数据库文件位置
+
 var db = new sqlite3.Database( path.join(__dirname,"../db/PatientManagement.db") );
 
 
 router.post("/addSurvey", (req, res) => {
     let json_body = req.body;
 
-    // 检查 survey_id 是否已存在
+  
     let check_sql = "SELECT COUNT(*) AS count FROM Survey WHERE survey_id = ?";
     db.get(check_sql, [json_body.survey_id], (err, row) => {
         if (err) {
@@ -41,12 +22,12 @@ router.post("/addSurvey", (req, res) => {
             return res.status(500).send("Database error occurred");
         }
 
-        // 如果 survey_id 已存在，返回提示信息
+   
         if (row.count > 0) {
             return res.status(400).send("Error: Survey ID already exists");
         }
 
-        // 如果不存在，则执行插入操作
+     
         let insert_sql = `
             INSERT INTO Survey
             (survey_id, last_sync, symptom, immuno_compromised, patient_id) 
@@ -65,7 +46,6 @@ router.post("/addSurvey", (req, res) => {
                 return res.status(500).send("Error occurred while inserting record");
             }
 
-            // 插入成功后重定向到 /Survey 页面
             res.redirect('/Survey');
         });
     });
@@ -73,7 +53,6 @@ router.post("/addSurvey", (req, res) => {
 router.post("/add", (req, res) => {
     let json_body = req.body;
 
-    // 检查 patient_id 是否已存在
     let check_sql = "SELECT COUNT(*) AS count FROM Patient WHERE patient_id = ?";
     db.get(check_sql, [json_body.patient_id], (err, row) => {
         if (err) {
@@ -81,12 +60,10 @@ router.post("/add", (req, res) => {
             return res.status(500).send("Database error occurred");
         }
 
-        // 如果 patient_id 已存在，返回提示信息
         if (row.count > 0) {
             return res.status(400).send("Error: Patient ID already exists");
         }
 
-        // 如果不存在，则执行插入操作
         let insert_sql = `
             INSERT INTO Patient 
             (patient_id, first_name, last_name, phone, DOB, address, gender) 
@@ -107,7 +84,7 @@ router.post("/add", (req, res) => {
                 return res.status(500).send("Error occurred while inserting record");
             }
 
-            // 插入成功后重定向到 /Patient 页面
+            
             res.redirect('/');
         });
     });
@@ -155,7 +132,7 @@ router.get("/Survey", (req, res) => {
         params.push(`%${req.query.foreignId}%`);
     }
 
-    // 使用 Promise 来处理异步操作
+
     let getSurveyData = new Promise((resolve, reject) => {
         db.all(sql, params, (err, rows) => {
             if (err) {
@@ -176,7 +153,7 @@ router.get("/Survey", (req, res) => {
         });
     });
 
-    // 等待两个查询都完成后再渲染页面
+
     Promise.all([getSurveyData, getPatientData])
         .then(([surveyRows, patientRows]) => {
             res.render('survey', {

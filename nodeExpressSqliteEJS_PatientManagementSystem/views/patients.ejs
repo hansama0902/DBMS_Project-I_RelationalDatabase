@@ -37,14 +37,12 @@
     </p>
     <p>
   <div class="container">
-    <!-- 搜索栏和添加病人按钮的水平对齐 -->
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div>
         <label for="phoneNumber" class="form-label">Phone Number:</label>
         <input type="text" id="phoneNumber" name="phoneNumber" class="form-control d-inline-block w-auto">
         <button onclick="searchNumber()" class="btn btn-primary">Search</button>
       </div>
-      <!-- "Add Patient" 按钮 -->
       <div>
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -140,10 +138,10 @@
       url: `/delete?id=${id}`,
       success: (res)=>{
         if(res.delstatus === 1){
-          alert('删除成功')
+          alert('Succussfully deleted')
           location.reload()
         }else{
-          alert('删除失败')
+          alert('Delete failed')
         }
       }
     })

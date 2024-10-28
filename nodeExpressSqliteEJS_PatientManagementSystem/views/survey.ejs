@@ -140,10 +140,10 @@ function delSurvey(id){
       url: `/delSurvey?id=${id}`,
       success: (res)=>{
         if(res.delstatus === 1){
-          alert('删除成功')
+          alert('Successfully deleted')
           location.reload()
         }else{
-          alert('删除失败')
+          alert('failed to delete')
         }
       }
     })
