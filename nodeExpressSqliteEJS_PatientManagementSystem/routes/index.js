@@ -108,7 +108,7 @@ router.post("/add", (req, res) => {
             }
 
             // 插入成功后重定向到 /Patient 页面
-            res.redirect('/Patient');
+            res.redirect('/');
         });
     });
 });
